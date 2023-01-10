@@ -1,14 +1,16 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 using System;
 
-public class cardHolder {
+public class cardHolder
+{
     int cardNum;
     int pin;
     string firstName;
     string lastName;
     double balance;
     int age;
-    public cardHolder(int cardNum, int pin, string firstName, string lastName, double balance, int age) {
+    public cardHolder(int cardNum, int pin, string firstName, string lastName, double balance, int age)
+    {
         this.cardNum = cardNum;
         this.pin = pin;
         this.firstName = firstName;
@@ -17,47 +19,59 @@ public class cardHolder {
         this.age = age;
     }
 
-    public int getNum() {
+    public int getNum()
+    {
         return cardNum;
     }
 
-    public int getPin() {
+    public int getPin()
+    {
         return pin;
     }
 
-    public String getFullName() {
+    public String getFullName()
+    {
         return firstName + " " + lastName;
     }
 
-    public double getBalance() {
+    public double getBalance()
+    {
         return balance;
     }
 
-    public int getAge() {
+    public int getAge()
+    {
         return age;
     }
 
-    public void setCardNum(int newCardNum) {
+    public void setCardNum(int newCardNum)
+    {
         cardNum = newCardNum;
     }
-    public void setPin(int newPin) {
+    public void setPin(int newPin)
+    {
         pin = newPin;
     }
-    public void setFirstName(string newFirstName) {
+    public void setFirstName(string newFirstName)
+    {
         firstName = newFirstName;
     }
-    public void setLastName(string newLastName) {
+    public void setLastName(string newLastName)
+    {
         lastName = newLastName;
     }
-    public void setBalance(double newBalance) {
+    public void setBalance(double newBalance)
+    {
         balance = newBalance;
     }
-    public void setAge(int newAge) {
+    public void setAge(int newAge)
+    {
         age = newAge;
     }
 
-    public static void Main(String[] args) {
-        void printOptions(cardHolder currentUser) 
+    public static void Main(String[] args)
+    {
+        void printOptions(cardHolder currentUser)
         {
             Console.WriteLine("\n\nHi, " + currentUser.getFullName() + " (Age: " + currentUser.getAge() + ")");
             Console.WriteLine("Your current balance: $" + currentUser.getBalance());
@@ -66,23 +80,33 @@ public class cardHolder {
             Console.WriteLine("2.) Withdraw");
             Console.WriteLine("3.) Exit");
         }
-        void deposit(cardHolder currentUser) 
+        void deposit(cardHolder currentUser)
         {
             Console.WriteLine("Amount to Deposit: ");
             double depositAmt = Double.Parse(Console.ReadLine());
-            depositAmt = currentUser.getBalance() + depositAmt;
-            currentUser.setBalance(depositAmt);
-            Console.WriteLine("Thanks for your deposit");
+            if (depositAmt > 0)
+            {
+                depositAmt = currentUser.getBalance() + depositAmt;
+                currentUser.setBalance(depositAmt);
+                Console.WriteLine("Thanks for your deposit");
+            }
+            else
+            {
+                Console.WriteLine("Failed to Deposit, wrong amount");
+            }
         }
-        void withdraw(cardHolder currentUser) 
+        void withdraw(cardHolder currentUser)
         {
             Console.WriteLine("Amount to Withdraw: ");
             double withdrawAmt = Double.Parse(Console.ReadLine());
-            if (currentUser.getBalance() > withdrawAmt) {
+            if (currentUser.getBalance() > withdrawAmt && withdrawAmt > 0)
+            {
                 withdrawAmt = currentUser.getBalance() - withdrawAmt;
                 currentUser.setBalance(withdrawAmt);
                 Console.WriteLine("Successfully Withdrawed");
-            } else {
+            }
+            else
+            {
                 Console.WriteLine("Failed to Withdraw, insufficient funds");
             }
         }
@@ -94,48 +118,72 @@ public class cardHolder {
         Console.WriteLine("\nPlease insert your card number: ");
         int enteredCard = 0;
         cardHolder currentUser;
-        while (true) {
-            try {
+        while (true)
+        {
+            try
+            {
                 enteredCard = int.Parse(Console.ReadLine());
                 currentUser = cardHolders.FirstOrDefault(a => a.cardNum == enteredCard);
-                if (currentUser != null) {
+                if (currentUser != null)
+                {
                     break;
-                } else {
+                }
+                else
+                {
                     Console.WriteLine("No matching cardholder member");
                 }
-            } catch {
+            }
+            catch
+            {
                 Console.WriteLine("ERROR: Please try again");
             }
         }
-        while (true) {
+        while (true)
+        {
             Console.WriteLine("\nPlease enter your pin: ");
-                int enteredPin = 0;
-                try {
-                    enteredPin = int.Parse(Console.ReadLine());
-                    if (currentUser.getPin() == enteredPin) {
-                        break;
-                    } else {
-                        Console.WriteLine("Incorrect PIN");
-                    }
-                } catch {
-                    Console.WriteLine("ERROR: Please try again");
+            int enteredPin = 0;
+            try
+            {
+                enteredPin = int.Parse(Console.ReadLine());
+                if (currentUser.getPin() == enteredPin)
+                {
+                    break;
                 }
+                else
+                {
+                    Console.WriteLine("Incorrect PIN");
+                }
+            }
+            catch
+            {
+                Console.WriteLine("ERROR: Please try again");
+            }
         }
         int userOption = 0;
-        while (userOption != 3) {
+        while (userOption != 3)
+        {
             printOptions(currentUser);
-            try {
+            try
+            {
                 userOption = int.Parse(Console.ReadLine());
-            } catch {
+            }
+            catch
+            {
                 Console.WriteLine("ERROR");
             }
-            if (userOption == 1) {
+            if (userOption == 1)
+            {
                 deposit(currentUser);
-            } else if (userOption == 2) {
-                withdraw(currentUser);
-            } else if (userOption == 3) {
             }
-            else {
+            else if (userOption == 2)
+            {
+                withdraw(currentUser);
+            }
+            else if (userOption == 3)
+            {
+            }
+            else
+            {
                 Console.WriteLine("ERROR: Incorrect option");
             }
         }
