@@ -1,0 +1,3 @@
+cardHolders.Add(new cardHolder(878912, 1234, "Bob", "Jones", 100, 20));
+cardHolders.Add(new cardHolder(123111, 4155, "Sarah", "Smith", 465, 39));
+cardHolders.Add(new cardHolder(401922, 9782, "Sam", "Brown", 25, 14));
